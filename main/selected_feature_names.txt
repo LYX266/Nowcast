@@ -1,0 +1,20 @@
+China: FAI: YTD:PoP GROWTHRATE
+China: Consumer Confidence Index: Employment:PoP chg
+China: Consumer Satisfaction Index: Employment:PoP chg
+China: Consumer Expectation Index: Employment:PoP chg
+China: Total Retail Sales of Consumer Goods: Catering Revenue:PoP GROWTHRATE
+China: Retail Sales of the Enterprises (units) above Designated Size:PoP GROWTHRATE
+China: Value of Imports and Exports:PoP GROWTHRATE
+USA: The NASDAQ Composite Index:PoP GROWTHRATE
+USA: S&P 500 Index:PoP GROWTHRATE
+China: M1:PoP GROWTHRATE
+China: Non-manufacturing PMI: Service Industry: New Orders:PoP chg
+China: Non-manufacturing PMI: New Orders:PoP chg
+China: Industrial Added Value Above Designated Size: Fixed-base Index:PoP GROWTHRATE
+China: Business Climate Index: Expectation Index:PoP chg
+China: Manufacturing PMI: New Orders:PoP chg
+China: Completed Investment in Real Estate Development: YTD:PoP GROWTHRATE
+China: Index of Future Price Expectation:PoP chg
+China: Industrial Capacity Utilization:PoP chg
+China: Business Climate Index:PoP chg
+China: Business Climate Index: Spot Index:PoP chg

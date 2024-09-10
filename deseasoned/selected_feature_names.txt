@@ -1,0 +1,6 @@
+China: Consumer Confidence Index: Employment:PoP chg
+China: Consumer Satisfaction Index: Employment:PoP chg
+China: Consumer Expectation Index: Employment:PoP chg
+China: Retail Sales of the Enterprises (units) above Designated Size:PoP GROWTHRATE
+China: Financial Institutions: New RMB Deposits:PoP GROWTHRATE
+China: Business Climate Index:PoP chg

@@ -1,0 +1,244 @@
+---
+title: "midasml"
+output: html_notebook
+---
+
+```{r}
+R.version.string
+install.packages('midasml')
+install.packages('tidyverse')
+install.packages('imputeTS')
+
+options(warn=-1)
+library(tidyverse)
+library(midasml)
+library(imputeTS)
+```
+
+
+```{r}
+# helper function, generate lagged datasets for testing on vintages
+gen_lagged_data <- function (metadata, data, last_date, lag) {
+  # only go up to the last date
+  lagged_data <- data %>% 
+    dplyr::filter(date <= last_date)
+  
+  for (col in colnames(lagged_data)[2:length(colnames(lagged_data))]) {
+    pub_lag <- metadata %>% 
+      dplyr::filter(series == col) %>% 
+      select(months_lag) %>% 
+      pull()
+    
+    # go back as far as needed for the pub_lag of the variable, then + the lag (so -2 for 2 months back)
+    condition <- (nrow(lagged_data) - pub_lag + lag)
+    # only input NA if the lag is less than the latest row in the data
+    if (condition <= nrow(lagged_data)) {
+      lagged_data[condition:nrow(lagged_data), col] <- NA
+    } 
+  }
+  lagged_data <- lagged_data %>% 
+    dplyr::filter(!is.na(date))
+  return (lagged_data)
+}
+
+# helper function, generate a dataset in the format required for the Midasml library
+gen_midasml_dataset <- function (data, target_variable, degree, low_freq_lags, high_freq_lags, train_start_date, train_end_date) {
+    # fill data with means
+    for (covariate in colnames(data)) {
+      if (covariate != target_variable) {
+        data[,covariate] <- na_mean(data[,covariate])
+      }
+    }
+    
+    # weights
+    w <- lb(degree = degree, jmax = high_freq_lags) 
+    
+    mfd <- list()
+    for (covariate in colnames(data)) {
+      if (!(covariate %in% c(target_variable, "date"))) {
+        mfd[[covariate]] <- mixed_freq_data(
+          data[,target_variable], 
+          as.Date(data[,"date"]),
+          data[,covariate], 
+          data[,"date"],
+          x.lag = high_freq_lags, 
+          y.lag = low_freq_lags, 
+          horizon = 1,
+          train_start_date, 
+          train_end_date, 
+          disp.flag = F
+        )
+      }
+    }
+    
+    y <- mfd[[1]]$est.y
+    x <- mfd[[1]]$est.lag.y #, mfd$est.x%*%w, mfd2$est.x%*%w)
+    for (covariate in colnames(data)) {
+      if (!(covariate %in% c(target_variable, "date"))) {
+        x <- cbind(x, mfd[[covariate]]$est.x%*%w)
+      }
+    }
+    
+    gindex <- c()
+    for (i in 1:(ncol(data)-1)) {
+      gindex <- c(gindex, rep(i, dim(mfd[[1]]$est.lag.y)[2])) 
+    }
+    return (list("y"=y, "x"=x, "gindex"=gindex))
+}
+```
+
+
+```{r}
+# Data set up
+# full data read
+# full data read
+metadata <- read_csv("/Users/leyixu/Desktop/meta_monthly_blocks.csv", show_col_types = FALSE)
+data <- read_csv("/Users/leyixu/Desktop/em_imputed_mq_stationary.csv", show_col_types = FALSE) %>%
+  arrange(date)
+
+target_variable <- "China: GDP: Current Prices:PoP GROWTHRATE"
+
+# which lags to assess
+lags <- -2:2
+
+# dates for training and test
+# test set is shorter in this example notebook than in the paper to save runtime. Set test_start_date to "2002-03-01" and test_end_date to "2022-09-01" for results of the paper.
+train_start_date <- as.Date("1992-06-30")
+test_start_date <- as.Date("2018-06-30")
+test_end_date <- as.Date("2024-06-30")
+```
+
+
+```{r}
+# will have a rolling test period, so model for e.g. 2002-03-01 is trained with data as it would have appeared on 2003-01-01, 2002-06-01 as it would have appeared on 2002-04-01, and so on. 
+# This mimics the real-world nowcasting scenario
+test_dates <- seq(as.Date(test_start_date), as.Date(test_end_date), by = "3 months")
+train_end_dates <- lapply(test_dates, function (x) seq(x, by="-2 months", length=2)[2]) %>% 
+    unlist() %>% 
+    as.Date(origin = "1970-01-01")
+
+# test dataset
+test <- data %>%
+    dplyr::filter(date >= train_start_date, date <= test_end_date) %>%
+    # the nowcastDFM library only works with dataframe, may get errors in estimation if you use tibbles
+    data.frame()
+
+# replace any infinites with NA
+for (col in colnames(test)) {
+    if (sum(is.infinite(test[,col])) > 0) {
+      test[is.infinite(test[,col]), col] <- NA 
+    }
+}
+Data should be a dataframe of seasonally adjusted growth rates with months in rows and quarterly variables in the last month of the quarter, with `np.nan`s for interquarter months.
+tail(data)
+# Training the model
+The model is trained on a rolling basis. So if we are predicting 2000-03-01, the model is trained on data as it would have appeared in 1999-12-01, right before the beginning of the prediction period.
+# Testing the model on artificial data vintages
+# dataframe for predictions
+pred_dict <- data.frame(date = test_dates)
+for (lag in lags) {
+  pred_dict[,as.character(lag)] <- NA
+}
+```
+
+
+```{r}
+# model hyperparameters
+gamma <- 0.25
+degree <- 3
+low_freq_lags <- 4
+high_freq_lags <- 9
+# looping through test dates
+for (i in 1:length(test_dates)) {
+    # training the actual model
+    train <- test %>%
+        dplyr::filter(date <= seq(as.Date(test_dates[i]), by="-3 months", length=2)[2]) # data as it would have appeared at beginning of prediction period
+    
+    dataset <- gen_midasml_dataset(train, target_variable, degree, low_freq_lags, high_freq_lags, train_start_date, test_dates[i])
+    
+    # estimating Midasml model
+    model <- cv.sglfit(dataset$x, dataset$y, gamma = gamma, gindex = dataset$gindex, nfold = 10)
+   
+    # testing the model on artificial vintages  
+    for (lag in lags) {
+        lagged_data <- gen_lagged_data(metadata, test, test_dates[i], lag) %>% 
+          data.frame
+        # make sure actual value not in there
+        lagged_data[lagged_data$date == test_dates[i], target_variable] <- NA
+        
+        # need to have a value in target gdp period to have model estimate
+        for (j in c(0, 3, 6, 9)) {
+            if(is.na(lagged_data[nrow(lagged_data)-j, target_variable])) {
+                  lagged_data[nrow(lagged_data)-j, target_variable] <- mean(lagged_data[,target_variable], na.rm=TRUE)
+            }
+        }
+        lagged_dataset <- gen_midasml_dataset(lagged_data, target_variable, degree, low_freq_lags, high_freq_lags, train_start_date, test_dates[i])
+
+        # getting prediction
+      preds <- predict(model, newx = lagged_dataset$x, s = 'lam.min')
+      
+      # appending to prediction dictionary
+      pred_dict[pred_dict$date == test_dates[i], as.character(lag)] <- preds[nrow(preds)] # last row of matrix is prediction period
+    }
+}
+```
+
+
+```{r}
+# Assess and visualize model performance
+actuals <- test %>%
+    filter(date >= test_start_date) %>%
+    filter(substr(date, 6, 7) %in% c("03", "06", "09", "12")) %>%
+    select(!!target_variable) %>%
+    pull()
+performance <- data.frame(Vintage = numeric(), RMSE = numeric())
+for (lag in lags) {
+    tmp = data.frame(
+        Vintage = lag,
+        RMSE = sqrt(mean((actuals - pred_dict[,as.character(lag)])**2))
+    )
+    performance = rbind(performance, tmp)
+}
+round(performance, 4)
+# plot of predictions vs actuals
+p <- tibble(
+    actuals = actuals,
+    two_back = pred_dict[, "-2"], 
+    one_back = pred_dict[, "-1"], 
+    zero_back = pred_dict[, "0"],
+    one_ahead = pred_dict[, "-1"],
+    two_ahead = pred_dict[, "2"]
+) %>%
+    mutate(x = 1:n()) %>%
+    gather(vintage, value, -x) %>%
+    ggplot() + 
+    aes(x=x, y=value, color=vintage) + 
+    geom_line()
+p
+
+# Final model usage / getting predictions on new data
+Say model selection is finished and the model is to now be used, i.e. used to get predictions on new data.
+# the test data ends 2010-03-01, let's say we wanted to predict 2010-06-01
+new_data <- test
+
+# the date we want predicted must be in the date, if it's not there it must be added
+desired_date <- "2010-06-01"
+months_to_add <- seq(max(new_data$date), as.Date(desired_date), by="month") %>% as.character()
+
+for (value in months_to_add[2:length(months_to_add)]) {
+    new_data[nrow(new_data) + 1, "date"] <- value
+}
+
+# we can now confirm the date we want to forecast is in the dataframe, even if all values are missing
+new_data %>% tail()
+
+# make it into a Midasml dataset
+new_dataset <- gen_midasml_dataset(new_data, target_variable, degree, low_freq_lags, high_freq_lags, train_start_date, new_data$date[nrow(new_data)])
+# training the actual model
+model <- cv.sglfit(new_dataset$x, new_dataset$y, gamma = gamma, gindex = new_dataset$gindex, nfold = 10)
+# getting prediction
+preds <- predict(model, newx = new_dataset$x, s = 'lam.min')
+preds[nrow(preds)] # prediction for target period 2010-06-01 corresponds to last row of preds
+```
+
+

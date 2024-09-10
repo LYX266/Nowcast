@@ -1,0 +1,85 @@
+series,freq,months_lag,block_g1,block_g2,block_1,block_2,block_3,block_4,block_5,block_6,block_7,block_8
+Ask: USD/CNY: 2M-Bid: USD/CNY: 2M:PoP GROWTHRATE,M,0,1,1,1,0,0,0,0,0,0,0
+Ask: USD/CNY: 2W-Bid: USD/CNY: 2W:PoP GROWTHRATE,M,0,1,1,1,0,0,0,0,0,0,0
+Real Effective Exchange Rate Index: CNY:PoP GROWTHRATE,M,1,1,1,1,0,0,0,0,0,0,0
+Nominal Effective Exchange Rate Index: CNY:PoP GROWTHRATE,M,1,1,1,1,0,0,0,0,0,0,0
+Ask: USD/CNY: 1Y-Bid: USD/CNY: 1Y:PoP GROWTHRATE,M,1,1,1,1,0,0,0,0,0,0,0
+China: Central Parity Rate: USDCNY:PoP GROWTHRATE,M,0,1,1,1,0,0,0,0,0,0,0
+USD/CNY: Spot Exchange Rate:PoP GROWTHRATE,M,0,1,1,1,0,0,0,0,0,0,0
+ChinaBond: Government Bond YTM: 10Y:PoP chg,M,0,1,1,0,1,0,0,0,0,0,0
+T-Bond YTM: 10Y:PoP chg,M,0,1,1,0,1,0,0,0,0,0,0
+Yicai Research Institute: China Financial Condition Index:PoP chg,M,0,1,1,0,1,0,0,0,0,0,0
+Percent Change: SSE Composite Index,M,0,1,1,0,1,0,0,0,0,0,0
+Percent Change: CSI 300 Index,M,0,1,1,0,1,0,0,0,0,0,0
+Percent Change: SZSE Component Index,M,0,1,1,0,1,0,0,0,0,0,0
+Hang Seng Index:PoP GROWTHRATE,M,0,1,1,0,1,0,0,0,0,0,0
+USA: Wilshire 5000 Total Market Full Cap Index:PoP GROWTHRATE,M,0,1,1,0,1,0,0,0,0,0,0
+USA: The NASDAQ Composite Index:PoP GROWTHRATE,M,0,1,1,0,1,0,0,0,0,0,0
+USA: S&P 500 Index:PoP GROWTHRATE,M,0,1,1,0,1,0,0,0,0,0,0
+Surveyed Urban Unemployment Rate in 31 Big Cities and Towns:PoP chg,M,1,1,1,0,0,1,0,0,0,0,0
+China: Urban Surveyed Unemployed Rate: Mean:PoP chg,M,1,1,1,0,0,1,0,0,0,0,0
+China: No. of New Employed Persons in Urban Areas: YTD:PoP GROWTHRATE,M,1,1,1,0,0,1,0,0,0,0,0
+China: Current Employment Sentiment Index:PoP chg,Q,2,1,1,0,0,1,0,0,0,0,0
+China: Employment Expectation Index:PoP chg,Q,2,1,1,0,0,1,0,0,0,0,0
+China: Consumer Confidence Index: Employment:PoP chg,M,2,1,1,0,0,1,0,0,0,0,0
+China: Consumer Satisfaction Index: Employment:PoP chg,M,2,1,1,0,0,1,0,0,0,0,0
+China: Consumer Expectation Index: Employment:PoP chg,M,2,1,1,0,0,1,0,0,0,0,0
+China: Industrial Capacity Utilization:PoP chg,Q,1,1,1,0,0,0,1,0,0,0,0
+Wind Consensus: China: PMI:PoP chg,M,1,1,1,0,0,0,1,0,0,0,0
+China: Non-manufacturing PMI: Service Industry:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China: Non-manufacturing PMI: Service Industry: New Orders:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China: Non-manufacturing PMI: Construction:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China: Non-manufacturing PMI: Construction: New Orders:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China: Non-manufacturing PMI: New Orders:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China: Steel Industry PMI:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China: Industrial Added Value Above Designated Size: Mining: YoY,M,1,1,1,0,0,0,1,0,0,0,0
+China: Industrial Added Value Above Designated Size: YoY,M,1,1,1,0,0,0,1,0,0,0,0
+China: Industrial Added Value Above Designated Size: Electric Power,M,1,1,1,0,0,0,1,0,0,0,0
+Gas and Water Production and Supply: YoY,M,1,1,1,0,0,0,1,0,0,0,0
+China: Industrial Added Value Above Designated Size: Fixed-base Index:PoP GROWTHRATE,M,1,1,1,0,0,0,1,0,0,0,0
+China: Industrial Added Value Above Designated Size: High-Tech Industry: YoY,M,1,1,1,0,0,0,1,0,0,0,0
+China: Industrial Added Value Above Designated Size: Manufacturing: YoY,M,1,1,1,0,0,0,1,0,0,0,0
+China: Business Climate Index:PoP chg,Q,3,1,1,0,0,0,1,0,0,0,0
+China: Business Climate Index: Spot Index:PoP chg,Q,3,1,1,0,0,0,1,0,0,0,0
+China: Business Climate Index: Expectation Index:PoP chg,Q,3,1,1,0,0,0,1,0,0,0,0
+China: Manufacturing PMI:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China: Manufacturing PMI: New Orders:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China Electricity Coal of Purchasing Manager Index: Composite Index:PoP chg,M,0,1,1,0,0,0,1,0,0,0,0
+China Forestry Purchasing Managers' Index:PoP chg,M,1,1,1,0,0,0,1,0,0,0,0
+China: CPI: Fixed-base Index:PoP GROWTHRATE,M,1,1,1,0,0,0,0,1,0,0,0
+China: PPI: Fixed-base Index:PoP GROWTHRATE,M,1,1,1,0,0,0,0,1,0,0,0
+China: PPI: Total Industry Products: MoM,M,1,1,1,0,0,0,0,1,0,0,0
+China: CPI: Excluding Food and Energy (Core CPI): MoM,M,1,1,1,0,0,0,0,1,0,0,0
+China: Basket Crude Oil Price Change Rate,M,0,1,1,0,0,0,0,1,0,0,0
+China: Consumer Confidence Index:PoP chg,M,2,1,1,0,0,0,0,1,0,0,0
+China: Consumer Expectation Index:PoP chg,M,2,1,1,0,0,0,0,1,0,0,0
+China: Index of Future Price Expectation:PoP chg,Q,2,1,1,0,0,0,0,1,0,0,0
+China Bulk Commodity Price Index: General Index:PoP,M,1,1,1,0,0,0,0,1,0,0,0
+China: Price Index for Means of Production:PoP,M,1,1,1,0,0,0,0,1,0,0,0
+China Bulk Commodity Price Index: Energy:PoP,M,1,1,1,0,0,0,0,1,0,0,0
+China: CPI: Food: MoM,M,1,1,1,0,0,0,0,1,0,0,0
+China: CPI: Non-food: MoM,M,1,1,1,0,0,0,0,1,0,0,0
+China: CPI: Consumer Goods: MoM,M,1,1,1,0,0,0,0,1,0,0,0
+China: CPI: Services: MoM,M,1,1,1,0,0,0,0,1,0,0,0
+China: PPI: Means of Production: MoM,M,1,1,1,0,0,0,0,1,0,0,0
+China: PPI: Consumer Goods: MoM,M,1,1,1,0,0,0,0,1,0,0,0
+China: BCI: Labor Costs:PoP,M,0,1,1,0,0,0,0,1,0,0,0
+China: Total Retail Sales of Consumer Goods:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,1,0,0
+China: Total Retail Sales of Consumer Goods: Merchandise Retail:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,1,0,0
+China: Total Retail Sales of Consumer Goods: Catering Revenue:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,1,0,0
+China: Total Retail Sales of Consumer Goods: Retail Sales of the Enterprises (units) excluding Vehicles:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,1,0,0
+China: Retail Sales of the Enterprises (units) above Designated Size:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,1,0,0
+China: Value of Imports and Exports:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,1,0,0
+China: Trade Balance:Combine With Forecast:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,1,0,0
+China: GDP: Current Prices:PoP GROWTHRATE,Q,1,1,1,1,1,1,1,1,1,1,1
+China: FAI: YTD:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,0,1,0
+China: Completed Investment in Real Estate Development: YTD:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,0,1,0
+China: Financial Institutions: Total Loans Balance: RMB:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,0,0,1
+China: Financial Institutions: New RMB Loans:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,0,0,1
+China: Financial Institutions: Total Deposits Balance: RMB:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,0,0,1
+China: Financial Institutions: New RMB Deposits:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,0,0,1
+China: M0:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,0,0,1
+China: M1:PoP GROWTHRATE,M,1,1,1,0,0,0,0,0,0,0,1
+China: Credit Lending Weighted Interest Rate of Depository Institutions: 3M:PoP chg,M,0,1,1,0,0,0,0,0,0,0,1
+China: SHIBOR: O/N:PoP chg,M,0,1,1,0,0,0,0,0,0,0,1
+China: SHIBOR: 1W:PoP chg,M,0,1,1,0,0,0,0,0,0,0,1
