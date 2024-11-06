@@ -12,6 +12,29 @@
 ## Purpose
 The purpose of this project is to nowcast low-frequency macroeconomic variable with high frequency data. The specific variable examined is quarterly GDP, but the methodology should be applicable to any other low-frequency measures. The predictors are a mixture of daily, monthly, and quarterly variables. Predictions are made on a monthly basis, as many readily available packages deal with monthly-quarterly mixed frequency data with ease. Extension to daily prediction is straightforward for most models (MIDAS/LSTM/elastic-net) but requires some work for DFM MQ. However, as per Bańbura, Marta, and Michele Modugno (2014), we know that the latent variable treatment can theoretically deal with any pattern of missing data at any frequency. Thus, an extension to daily frequency would require some extra work based on the Statsmodels package. The project conducts both seasonal and desonalized analysis with the same structure. In the end, the individual models are stacked for better predictive performance and compared against an ARIMA/SARIMA model as per the literature.
 
+## Contribution
+The seasonal ensemble outperforms the baseline by **160%** in terms of RMSE. The deseasonalized ensemble outperforms the baseline by **450%** in terms of RMSE. 
+
+### Summary Table of Results
+
+| **Method**                | **Vintage 0** | **Vintage 1** | **Vintage 2** | **Vintage 3** | **Overall RMSE** |
+|---------------------------|---------------|---------------|---------------|---------------|------------------|
+| ARIMA                     |               |               |               |               | 0.7126           |
+| SARIMA                    |               |               |               |               | 0.6602           |
+| DFM_MQ                    | 0.8331        | 0.7422        | 0.8453        | 1.0216        | 0.8610           |
+| MIDAS                     | 0.5509        | 0.5745        | 0.5920        | 0.5945        | 0.5780           |
+| LSTM                      | 0.5022        | 0.6404        | 0.8696        | 0.9799        | 0.7480           |
+| Elastic-net               | 0.3651        | 0.3650        | 0.3647        | 0.4270        | 0.3805           |
+| Ensemble                  | 0.5354        | 0.3259        | 0.3288        | 0.4641        | 0.4136           |
+| ARIMA (Deseasonalized)     |               |               |               |               | 1.5873          |
+| SARIMA (Deseasonalized)    |               |               |               |               | 1.7877          |
+| DFM_MQ (Deseasonalized)    | 1.0509        | 1.1909        | 1.1478        | 1.2942        | 1.1710          |
+| MIDAS (Deseasonalized)     | 1.0972        | 1.1111        | 1.1835        | 1.1832        | 1.1438          |
+| LSTM (Deseasonalized)      | 1.2152        | 1.2620        | 1.2333        | 1.2447        | 1.2388          |
+| Elastic-net (Deseasonalized)| 0.9895       | 0.9924        | 1.0463        | 1.0446        | 1.0182          |
+| Ensemble (Deseasonalized)  | 0.2319        | 0.3453        | 0.4157        | 0.4256        | 0.3546          |
+
+
 ## Data and processing
 ### Data source
 In the illustrations, data are downloaded as csv files from Wind. Replacing with Wind API is straightforward. Here is an example to set up wind API after downloading the app and logging in:
@@ -664,18 +687,18 @@ __Summary Table__
 |---------------------------|---------------|---------------|---------------|---------------|------------------|
 | ARIMA                     |               |               |               |               | 0.7126           |
 | SARIMA                    |               |               |               |               | 0.6602           |
-| DFM_MQ                    | 0.8331        | 0.7422        | 0.8453        | 1.0216        |                  |
+| DFM_MQ                    | 0.8331        | 0.7422        | 0.8453        | 1.0216        | 0.8610           |
 | MIDAS                     | 0.5509        | 0.5745        | 0.5920        | 0.5945        | 0.5780           |
 | LSTM                      | 0.5022        | 0.6404        | 0.8696        | 0.9799        | 0.7480           |
 | Elastic-net               | 0.3651        | 0.3650        | 0.3647        | 0.4270        | 0.3805           |
-| Ensemble                  | 0.5354        | 0.3259        | 0.3288        | 0.4641        |                  |
-| ARIMA (Deseasonalized)     |               |               |               |               | 1.5873           |
-| SARIMA (Deseasonalized)    |               |               |               |               | 1.7877           |
-| DFM_MQ (Deseasonalized)    | 1.0509        | 1.1909        | 1.1478        | 1.2942        |                  |
-| MIDAS (Deseasonalized)     | 1.0972        | 1.1111        | 1.1835        | 1.1832        | 1.1438           |
-| LSTM (Deseasonalized)      | 1.2152        | 1.2620        | 1.2333        | 1.2447        | 1.2388           |
-| Elastic-net (Deseasonalized)| 0.9895       | 0.9924        | 1.0463        | 1.0446        | 1.0182           |
-| Ensemble (Deseasonalized)  | 0.2319        | 0.3453        | 0.4157        | 0.4256        |                  |
+| Ensemble                  | 0.5354        | 0.3259        | 0.3288        | 0.4641        | 0.4136           |
+| ARIMA (Deseasonalized)     |               |               |               |               | 1.5873          |
+| SARIMA (Deseasonalized)    |               |               |               |               | 1.7877          |
+| DFM_MQ (Deseasonalized)    | 1.0509        | 1.1909        | 1.1478        | 1.2942        | 1.1710          |
+| MIDAS (Deseasonalized)     | 1.0972        | 1.1111        | 1.1835        | 1.1832        | 1.1438          |
+| LSTM (Deseasonalized)      | 1.2152        | 1.2620        | 1.2333        | 1.2447        | 1.2388          |
+| Elastic-net (Deseasonalized)| 0.9895       | 0.9924        | 1.0463        | 1.0446        | 1.0182          |
+| Ensemble (Deseasonalized)  | 0.2319        | 0.3453        | 0.4157        | 0.4256        | 0.3546          |
 
 *Table 1: Updated Summary of RMSEs by Vintage and Method*
 
