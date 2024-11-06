@@ -13,7 +13,7 @@
 The purpose of this project is to nowcast low-frequency macroeconomic variable with high frequency data. The specific variable examined is quarterly GDP, but the methodology should be applicable to any other low-frequency measures. The predictors are a mixture of daily, monthly, and quarterly variables. Predictions are made on a monthly basis, as many readily available packages deal with monthly-quarterly mixed frequency data with ease. Extension to daily prediction is straightforward for most models (MIDAS/LSTM/elastic-net) but requires some work for DFM MQ. However, as per Bańbura, Marta, and Michele Modugno (2014), we know that the latent variable treatment can theoretically deal with any pattern of missing data at any frequency. Thus, an extension to daily frequency would require some extra work based on the Statsmodels package. The project conducts both seasonal and desonalized analysis with the same structure. In the end, the individual models are stacked for better predictive performance and compared against an ARIMA/SARIMA model as per the literature.
 
 ## Contribution
-The seasonal ensemble outperforms the baseline by **160%** in terms of RMSE. The deseasonalized ensemble outperforms the baseline by **450%** in terms of RMSE. 
+The seasonal ensemble outperforms the baseline by **41.96%%** in terms of RMSE. The deseasonalized ensemble outperforms the baseline by **77.64%** in terms of RMSE. 
 
 ### Summary Table of Results
 
